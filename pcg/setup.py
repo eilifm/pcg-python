@@ -4,6 +4,7 @@ from Cython.Build import cythonize
 from os.path import join
 from os import getcwd
 import glob
+import numpy
 
 pwd = getcwd()
 
@@ -12,9 +13,7 @@ sources = [join(pwd, 'pcg.pyx')] + ['pcg-advance-32.c', 'pcg-advance-64.c','pcg-
 setup(
     ext_modules = cythonize([Extension("pcg",
                              sources=sources,
-                             include_dirs=[pwd],
+                             include_dirs=[pwd,numpy.get_include()],
+
                              extra_compile_args=['-std=c99'])])
 )
-
-
-
